@@ -1,0 +1,46 @@
+@import "tailwindcss";
+@font-face {
+    font-family: Star Trek;
+    src: url("../assets/fonts/Ba.TTF");
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Star Trek", sans-serif;
+    background: #d8cfc4;
+    background-color: #FFD07B;
+    color: #f3f4f6;
+}
+
+/* Keyframes */
+@keyframes text_bounce_in {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0%);
+    }
+}
+
+@keyframes selfie_bounce_in {
+    0% {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Class that uses keyframes */
+.animate-text-bounce-in {
+    animation: text_bounce_in 1s ease-out forwards;
+}
+
+.animate-selfie-bounce-in {
+    animation: selfie_bounce_in 1s ease-in forwards;
+}
