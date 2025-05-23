@@ -1,0 +1,60 @@
+@import "tailwindcss";
+@font-face {
+  font-family: Star Trek;
+  src: url("../assets/fonts/Ba.TTF");
+}
+
+:root {
+  --bg-color: #1e1e2f;
+  --text-color: #e0e0e0;
+  --accent-primary: #00ffcc;
+  --accent-secondary: #ff4081;
+  --highlight: #ffaa00;
+}
+
+html,
+body {
+  font-family: "Star Trek", sans-serif;
+  color: var(--text-color);
+}
+
+nav {
+  background-color: rgba(30, 30, 47, 0.85);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+nav a {
+  color: var(--text-color);
+  text-decoration: none;
+  font-family: 'Star Trek', sans-serif;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: var(--accent-primary);
+}
+
+nav a.active {
+  transition: color 0.3s ease;
+  color: var(--accent-primary);
+  position: relative;
+}
+
+nav a.active::after {
+  transition: all 0.3s ease;
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 2px;
+  background-color: var(--accent-primary);
+  border-radius: 1px;
+}
+
+.CodeSavage {
+  margin-left: auto;
+  width: fit-content;
+}

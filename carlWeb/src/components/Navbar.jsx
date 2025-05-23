@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import "./main.css";
+import "./Navbar.css";
 
 const Navbar = () => {
   const [activeSection, setActiveSection] = useState('');
@@ -23,7 +23,7 @@ const Navbar = () => {
       {
         root: null,
         rootMargin: '0px',
-        threshold: 0.6, // Adjust to control sensitivity
+        threshold: 0.6, 
       }
     );
 
@@ -46,17 +46,17 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-12">
           <div className="flex justify-center flex-1 space-x-8">
             {sections.map(item => (
-              <a
-                key={item.id}
-                href={item.href}
-                className={`text-sm font-medium transition-colors ${
-                  activeSection === item.href.substring(1)
-                    ? 'text-[#3b9c9c]'
-                    : 'text-gray-100 hover:text-[#3b9c9c]'
-                }`}
-              >
-                {item.text}
-              </a>
+             <a
+             key={item.id}
+             href={item.href}
+             className={`text-sm font-medium transition-colors ${
+               activeSection === item.href.substring(1)
+                 ? 'active'
+                 : ''
+             }`}
+           >
+             {item.text}
+           </a>
             ))}
           </div>
           <div className="ml-8">

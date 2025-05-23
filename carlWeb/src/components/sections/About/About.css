@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+:root {
+  --bg-color: #1e1e2f;
+  --text-color: #e0e0e0;
+  --primary-accent: #00ffcc;
+  --secondary-accent: #ff4081;
+  --highlight-color: #ffaa00;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Star Trek", sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.about-section {
+  background-color: var(--bg-color);
+  background-image: radial-gradient(circle at top left, rgba(0, 255, 204, 0.05), transparent 60%),
+                    radial-gradient(circle at bottom right, rgba(255, 64, 129, 0.05), transparent 60%);
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 2rem;
+}
+
+.about-text {
+  font-family: 'Inter', sans-serif;
+  color: var(--text-color);
+}
+
+.about-heading {
+  background-image: linear-gradient(to right, var(--primary-accent), var(--secondary-accent));
+  -webkit-background-clip: text;
+  color: transparent;
+  font-weight: bold;
+}
+
+.about-highlight {
+  color: var(--highlight-color);
+}

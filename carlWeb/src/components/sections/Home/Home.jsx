@@ -2,7 +2,7 @@ import "./Home.css"
 
 const Home = () => {
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center bg-black">
+    <section id="home" className="min-h-screen flex items-center justify-center bg-#1e1e2f">
       <div className="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-16 p-8">
         <div className="animate-text-bounce-in text-center z-10 px-4 max-w-lg mx-auto">
           <h1 className="text-2xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent leading-tight">

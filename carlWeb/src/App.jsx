@@ -1,9 +1,9 @@
 import { useState } from "react";
 import Navbar from "./components/Navbar";
-import Home from "./components/sections/Home";
-import About from "./components/sections/About";
-import Resume from "./components/sections/Resume";
-import Contact from "./components/sections/Contact";
+import Home from "./components/sections/Home/Home";
+import About from "./components/sections/About/About";
+import Resume from "./components/sections/Resume/Resume";
+import Contact from "./components/sections/Contact/Contact";
 
 
 function App() {
