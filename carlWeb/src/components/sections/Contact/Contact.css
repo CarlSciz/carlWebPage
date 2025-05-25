@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Unbounded&display=swap');
+
+:root {
+  --bg-color: #1e1e2f;
+  --text-color: #e0e0e0;
+  --primary-accent: #00ffcc;
+  --secondary-accent: #ff4081;
+  --highlight-color: #ffaa00;
+}
+
+.contact-section {
+  background-color: var(--bg-color);
+  padding: 2rem;
+  color: var(--text-color);
+}
+
+.contact-heading-tag {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 156px;
+  line-height: 0.9em;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.contact-heading-in {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 156px;
+  line-height: 0.8em;
+  font-weight: bold;
+  color: var(--highlight-color);
+}
+
+.contact-icon {
+  color: var(--text-color);
+  transition: color 0.3s ease;
+}
+
+.contact-icon:hover {
+  color: var(--primary-accent);
+}
+
+.contact-form {
+  background-color: #2a2a3b;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+    font-family: 'Inter', sans-serif;
+    background-color: #f3f4f6;
+    color: #1e1e2f;
+}
+
+.contact-form button {
+    font-family: 'Inter', sans-serif;
+  background-color: var(--primary-accent);
+  color: #1e1e2f;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.contact-form button:hover {
+  background-color: var(--secondary-accent);
+  color: #fff;
+}
