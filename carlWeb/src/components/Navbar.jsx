@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import "./Navbar.css";
 
-const Navbar = () => {
-  const [activeSection, setActiveSection] = useState('');
+/* eslint-disable react/prop-types */
 
-  const sections = [
-    { id: 1, text: 'Home', href: '#home' },
-    { id: 2, text: 'About', href: '#about' },
-    { id: 3, text: 'Resume', href: '#resume' },
-    { id: 4, text: 'Contact', href: '#contact' }
-  ];
+const sections = [
+  { id: 1, text: "Home", href: "#home" },
+  { id: 2, text: "About", href: "#about" },
+  { id: 3, text: "Resume", href: "#resume" },
+  { id: 4, text: "Contact", href: "#contact" }
+];
+
+const Navbar = ({ isDarkMode, onToggleTheme }) => {
+  const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -41,15 +43,18 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="fixed top-0 w-full z-40 bg-[rgba(10,10,10,0.7)] backdrop-blur-lg border-b border-white/10 shadow-lg">
-      <div className="max-w-5xl mx-auto px-4">
-        <div className="flex justify-between items-center h-12">
-          <div className="flex justify-center flex-1 space-x-8">
+    <nav className="site-nav fixed top-0 w-full z-40">
+      <div className="section-frame px-4 sm:px-6">
+        <div className="flex h-18 items-center justify-between gap-4">
+          <a href="#home" className="nav-badge hidden rounded-full px-4 py-2 text-sm font-semibold md:inline-flex">
+            Carl Scozzari
+          </a>
+          <div className="flex flex-1 justify-center gap-2 sm:gap-3">
             {sections.map(item => (
              <a
              key={item.id}
              href={item.href}
-             className={`text-sm font-medium transition-colors ${
+             className={`nav-link ${
                activeSection === item.href.substring(1)
                  ? 'active'
                  : ''
@@ -59,13 +64,20 @@ const Navbar = () => {
            </a>
             ))}
           </div>
-          <div className="ml-8">
+          <button
+            type="button"
+            className="nav-theme-toggle nav-badge rounded-full p-2"
+            onClick={onToggleTheme}
+            aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+            aria-pressed={isDarkMode}
+            title={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+          >
             <img
               src="/carl_vector.png"
               alt="Carl 2D Selfie"
-              className="w-12 h-10 object-contain"
+              className="h-10 w-10 object-contain"
             />
-          </div>
+          </button>
         </div>
       </div>
     </nav>

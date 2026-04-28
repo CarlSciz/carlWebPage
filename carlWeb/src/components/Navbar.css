@@ -1,60 +1,61 @@
 @import "tailwindcss";
-@font-face {
-  font-family: Star Trek;
-  src: url("../assets/fonts/Ba.TTF");
+
+.site-nav {
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--nav-border);
+  box-shadow: var(--nav-shadow);
+  backdrop-filter: blur(22px);
 }
 
-:root {
-  --bg-color: #1e1e2f;
-  --text-color: #e0e0e0;
-  --accent-primary: #00ffcc;
-  --accent-secondary: #ff4081;
-  --highlight: #ffaa00;
-}
-
-html,
-body {
-  font-family: "Star Trek", sans-serif;
-  color: var(--text-color);
-}
-
-nav {
-  background-color: rgba(30, 30, 47, 0.85);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-nav a {
-  color: var(--text-color);
-  text-decoration: none;
-  font-family: 'Star Trek', sans-serif;
-  transition: color 0.3s ease;
-}
-
-nav a:hover {
-  color: var(--accent-primary);
-}
-
-nav a.active {
-  transition: color 0.3s ease;
-  color: var(--accent-primary);
+.nav-link {
   position: relative;
+  padding: 0.45rem 0.8rem;
+  border-radius: 9999px;
+  color: var(--ink-700);
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 180ms ease, background-color 180ms ease, transform 180ms ease;
 }
 
-nav a.active::after {
-  transition: all 0.3s ease;
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -4px;
-  height: 2px;
-  background-color: var(--accent-primary);
-  border-radius: 1px;
+.nav-link:hover {
+  color: var(--teal-700);
+  background: var(--surface-soft);
+  transform: translateY(-1px);
 }
 
-.CodeSavage {
-  margin-left: auto;
-  width: fit-content;
+.nav-link.active {
+  color: var(--teal-700);
+  background: var(--surface-strong);
+}
+
+.nav-badge {
+  border: 1px solid var(--border-soft);
+  background: var(--badge-bg);
+  color: var(--ink-900);
+  box-shadow: var(--badge-shadow);
+}
+
+.nav-theme-toggle {
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.nav-theme-toggle:hover {
+  transform: translateY(-1px) scale(1.03);
+}
+
+.nav-theme-toggle:focus-visible {
+  outline: 2px solid var(--teal-500);
+  outline-offset: 3px;
+}
+
+.nav-theme-toggle img {
+  transition: transform 220ms ease, filter 220ms ease;
+}
+
+.nav-theme-toggle[aria-pressed="true"] img {
+  transform: rotate(-10deg) scale(1.03);
+  filter: drop-shadow(0 0 14px rgba(139, 195, 209, 0.4));
 }

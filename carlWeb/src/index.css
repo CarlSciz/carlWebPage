@@ -1,43 +1,188 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap");
 @import "tailwindcss";
-@font-face {
-    font-family: Star Trek;
-    src: url("../assets/fonts/Ba.TTF");
+
+:root {
+  color-scheme: light;
+  --sand-50: #fffaf2;
+  --sand-100: #f6eadb;
+  --sand-200: #ecd4b4;
+  --sand-300: #e6c58f;
+  --sky-100: #dff3f7;
+  --sky-300: #8bc3d1;
+  --sky-500: #4f8fa4;
+  --teal-500: #2d7b83;
+  --teal-700: #174f58;
+  --sunset-400: #f39a62;
+  --sunset-500: #ec7d4d;
+  --ink-900: #143642;
+  --ink-700: #335b67;
+  --ink-500: #50707a;
+  --foam: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.45);
+  --shadow-soft: 0 24px 70px rgba(20, 54, 66, 0.14);
+  --body-bg:
+    radial-gradient(circle at top left, rgba(243, 154, 98, 0.22), transparent 28%),
+    radial-gradient(circle at 85% 18%, rgba(139, 195, 209, 0.28), transparent 24%),
+    linear-gradient(180deg, #fef6e8 0%, #f6efe1 34%, #eef7f6 100%);
+  --surface-soft: rgba(255, 255, 255, 0.7);
+  --surface-strong: rgba(255, 255, 255, 0.88);
+  --surface-card: rgba(255, 255, 255, 0.62);
+  --surface-elevated: rgba(255, 255, 255, 0.82);
+  --border-soft: rgba(79, 143, 164, 0.18);
+  --nav-bg: linear-gradient(180deg, rgba(255, 250, 242, 0.84), rgba(255, 250, 242, 0.58));
+  --nav-border: rgba(255, 255, 255, 0.5);
+  --nav-shadow: 0 12px 40px rgba(20, 54, 66, 0.08);
+  --badge-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.68));
+  --badge-shadow: 0 10px 24px rgba(20, 54, 66, 0.08);
+  --input-shadow-focus: 0 0 0 4px rgba(79, 143, 164, 0.12);
 }
-html,
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --sand-50: #0d1e27;
+  --sand-100: #132a35;
+  --sand-200: #1c3944;
+  --sand-300: #24505f;
+  --sky-100: #15313c;
+  --sky-300: #3f7485;
+  --sky-500: #79afbf;
+  --teal-500: #79c3c8;
+  --teal-700: #bde4e5;
+  --sunset-400: #f4a87a;
+  --sunset-500: #ff996b;
+  --ink-900: #edf9fb;
+  --ink-700: #c4dde3;
+  --ink-500: #95b6bf;
+  --foam: rgba(11, 27, 35, 0.72);
+  --glass-border: rgba(134, 195, 210, 0.14);
+  --shadow-soft: 0 30px 80px rgba(0, 0, 0, 0.34);
+  --body-bg:
+    radial-gradient(circle at top left, rgba(255, 153, 107, 0.12), transparent 28%),
+    radial-gradient(circle at 85% 18%, rgba(121, 175, 191, 0.16), transparent 24%),
+    linear-gradient(180deg, #08141b 0%, #0d2029 40%, #112b36 100%);
+  --surface-soft: rgba(18, 40, 51, 0.62);
+  --surface-strong: rgba(22, 48, 60, 0.84);
+  --surface-card: rgba(17, 39, 49, 0.58);
+  --surface-elevated: rgba(16, 35, 44, 0.86);
+  --border-soft: rgba(121, 175, 191, 0.22);
+  --nav-bg: linear-gradient(180deg, rgba(9, 22, 29, 0.84), rgba(9, 22, 29, 0.6));
+  --nav-border: rgba(121, 175, 191, 0.12);
+  --nav-shadow: 0 14px 42px rgba(0, 0, 0, 0.22);
+  --badge-bg: linear-gradient(180deg, rgba(18, 40, 51, 0.9), rgba(14, 32, 41, 0.72));
+  --badge-shadow: 0 12px 30px rgba(0, 0, 0, 0.24);
+  --input-shadow-focus: 0 0 0 4px rgba(121, 175, 191, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-    margin: 0;
-    padding: 0;
-    font-family: "Star Trek", sans-seif;
-    background: #FFD07B;
-    color: #f3f4f6;
+  margin: 0;
+  min-width: 320px;
+  font-family: "Manrope", sans-serif;
+  background: var(--body-bg);
+  color: var(--ink-900);
+  transition: background 240ms ease, color 240ms ease;
 }
 
-@layer utilities {
-    @keyframes blink {
-        0%, 100% {
-            opacity: 1;
-        }
-        50%{
-            opacity: 0;
-        }
-    }
-
-    .animate-blink {
-        animation: blink 0.8s step-end infinite;
-    }
+a {
+  color: inherit;
 }
 
-@layer utilities {
-    @keyframes loading {
-        0% {
-            transform: translateX(-100%);
-        }
-        100%{
-            transform: translateX(250%);
-        }
-    }
+img {
+  max-width: 100%;
+  display: block;
+}
 
-    .animate-loading-bar {
-        animation: loading 0.8s ease;
-    }
+::selection {
+  background: rgba(79, 143, 164, 0.3);
+}
+
+.section-frame {
+  width: min(1120px, calc(100% - 2rem));
+  margin: 0 auto;
+}
+
+.glass-panel {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--surface-strong) 82%, transparent), color-mix(in srgb, var(--surface-card) 92%, transparent));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(18px);
+}
+
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 9999px;
+  background: var(--surface-card);
+  border: 1px solid var(--border-soft);
+  color: var(--teal-700);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.section-title {
+  margin: 0;
+  font-family: "Fraunces", serif;
+  font-size: clamp(2.8rem, 5vw, 4.9rem);
+  line-height: 0.96;
+  letter-spacing: -0.04em;
+}
+
+.section-copy {
+  margin: 0;
+  color: var(--ink-700);
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+@keyframes floatY {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes swell {
+  0%, 100% {
+    transform: translateX(0) scaleX(1);
+  }
+  50% {
+    transform: translateX(18px) scaleX(1.04);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }

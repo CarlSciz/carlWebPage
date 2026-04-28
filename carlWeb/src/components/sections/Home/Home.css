@@ -1,46 +1,149 @@
 @import "tailwindcss";
-@font-face {
-    font-family: Star Trek;
-    src: url("../assets/fonts/Ba.TTF");
+
+.home-section {
+  position: relative;
+  min-height: 100vh;
+  padding: 7rem 0 4rem;
 }
 
-html,
-body {
-    margin: 0;
-    padding: 0;
-    font-family: "Star Trek", sans-serif;
-    background: #d8cfc4;
-    background-color: #1e1e2f;
-    color: #f3f4f6;
+.home-section::before,
+.home-section::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
 }
 
-/* Keyframes */
-@keyframes text_bounce_in {
-    0% {
-        transform: translateY(-100%);
-        opacity: 0;
-    }
-    100% {
-        transform: translateY(0%);
-    }
+.home-section::before {
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(255, 248, 236, 0.4), rgba(255, 248, 236, 0)),
+    radial-gradient(circle at 18% 22%, rgba(243, 154, 98, 0.16), transparent 20%),
+    radial-gradient(circle at 82% 18%, rgba(139, 195, 209, 0.2), transparent 20%);
 }
 
-@keyframes selfie_bounce_in {
-    0% {
-        transform: translateY(100%);
-        opacity: 0;
-    }
-    100% {
-        transform: translateY(0);
-        opacity: 1;
-    }
+.home-section::after {
+  left: 0;
+  right: 0;
+  bottom: 2.5rem;
+  height: 7rem;
+  background:
+    radial-gradient(60% 120% at 20% 0%, rgba(79, 143, 164, 0.18), transparent 60%),
+    radial-gradient(50% 110% at 70% 20%, rgba(45, 123, 131, 0.12), transparent 60%);
+  animation: swell 9s ease-in-out infinite;
 }
 
-/* Class that uses keyframes */
-.animate-text-bounce-in {
-    animation: text_bounce_in 1s ease-out forwards;
+.home-card {
+  border-radius: 2rem;
+  padding: 1.4rem;
 }
 
-.animate-selfie-bounce-in {
-    animation: selfie_bounce_in 1s ease-in forwards;
+.home-kicker {
+  color: var(--teal-500);
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.home-title {
+  margin: 0;
+  font-family: "Fraunces", serif;
+  font-size: clamp(3.7rem, 8vw, 7rem);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+}
+
+.home-title-accent {
+  display: block;
+  color: var(--sunset-500);
+}
+
+.home-copy {
+  margin: 0;
+  max-width: 38rem;
+  color: var(--ink-700);
+  font-size: 1.08rem;
+  line-height: 1.9;
+}
+
+.home-chip {
+  border: 1px solid var(--border-soft);
+  background: var(--surface-soft);
+  color: var(--ink-700);
+}
+
+.home-primary-link {
+  background: linear-gradient(135deg, var(--teal-700), var(--teal-500));
+  color: white;
+  box-shadow: 0 18px 34px rgba(45, 123, 131, 0.24);
+}
+
+.home-secondary-link {
+  border: 1px solid var(--border-soft);
+  background: var(--surface-soft);
+  color: var(--ink-900);
+}
+
+.home-primary-link,
+.home-secondary-link {
+  transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+}
+
+.home-primary-link:hover,
+.home-secondary-link:hover {
+  transform: translateY(-2px);
+}
+
+.home-portrait-wrap {
+  position: relative;
+  animation: floatY 7s ease-in-out infinite;
+}
+
+.home-portrait-ring {
+  position: absolute;
+  inset: -1.2rem;
+  border-radius: 2rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.8), rgba(139, 195, 209, 0.15));
+  border: 1px solid var(--glass-border);
+  transform: rotate(-5deg);
+}
+
+.home-stat-card {
+  border: 1px solid var(--border-soft);
+  background: var(--surface-card);
+}
+
+.home-stat-value {
+  font-family: "Fraunces", serif;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.home-fade {
+  animation: fadeUp 0.9s ease-out both;
+}
+
+.home-fade-delay {
+  animation: fadeUp 1s ease-out 0.18s both;
+}
+
+.home-fade-delay-2 {
+  animation: fadeUp 1s ease-out 0.32s both;
+}
+
+:root[data-theme="dark"] .home-section::before {
+  background:
+    linear-gradient(180deg, rgba(10, 26, 34, 0.32), rgba(10, 26, 34, 0)),
+    radial-gradient(circle at 18% 22%, rgba(255, 153, 107, 0.1), transparent 20%),
+    radial-gradient(circle at 82% 18%, rgba(121, 175, 191, 0.14), transparent 20%);
+}
+
+:root[data-theme="dark"] .home-section::after {
+  background:
+    radial-gradient(60% 120% at 20% 0%, rgba(121, 175, 191, 0.14), transparent 60%),
+    radial-gradient(50% 110% at 70% 20%, rgba(121, 195, 200, 0.1), transparent 60%);
+}
+
+:root[data-theme="dark"] .home-portrait-ring {
+  background: linear-gradient(180deg, rgba(24, 54, 65, 0.8), rgba(121, 175, 191, 0.08));
 }

@@ -1,48 +1,68 @@
 @import "tailwindcss";
 
-
-:root {
-  --bg-color: #1e1e2f;
-  --text-color: #e0e0e0;
-  --primary-accent: #00ffcc;
-  --secondary-accent: #ff4081;
-  --highlight-color: #ffaa00;
-}
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-  font-family: "Star Trek", sans-serif;
-  background-color: var(--bg-color);
-  color: var(--text-color);
-}
-
 .resume-section {
-  background-color: var(--bg-color);
-  background-image: radial-gradient(circle at top left, rgba(0, 255, 204, 0.05), transparent 60%),
-                    radial-gradient(circle at bottom right, rgba(255, 64, 129, 0.05), transparent 60%);
-  background-repeat: no-repeat;
-  background-size: cover;
+  position: relative;
+  padding: 2rem 0 4rem;
+}
+
+.resume-layout {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.resume-panel {
+  border-radius: 2rem;
   padding: 2rem;
 }
 
-.resume-heading {
-  background-image: linear-gradient(to right, var(--primary-accent), var(--secondary-accent));
-  -webkit-background-clip: text;
-  color: transparent;
-  font-weight: bold;
+.resume-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  border-radius: 9999px;
+  padding: 0.95rem 1.2rem;
+  background: linear-gradient(135deg, rgba(243, 154, 98, 0.16), var(--surface-elevated));
+  border: 1px solid rgba(243, 154, 98, 0.24);
+  color: var(--ink-900);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: transform 180ms ease, box-shadow 180ms ease;
 }
 
-.resume-text {
-  font-family: 'Inter', sans-serif;
-  color: var(--text-color);
+.resume-download:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 28px rgba(236, 125, 77, 0.18);
+}
+
+.resume-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.resume-item {
+  border: 1px solid var(--border-soft);
+  background: var(--surface-card);
 }
 
 .resume-role {
-  color: var(--text-color);
+  margin: 0.4rem 0 0;
+  color: var(--ink-700);
+  line-height: 1.7;
 }
 
 .resume-dates {
-  color: #a0a0a0;
+  color: var(--teal-500);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+@media (min-width: 980px) {
+  .resume-layout {
+    grid-template-columns: 0.78fr 1.22fr;
+    align-items: start;
+  }
 }
