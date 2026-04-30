@@ -39,8 +39,6 @@ function App() {
           <div className="section-frame site-footer-inner">
             <p className="site-footer-copy">© 2026 Carl Scozzari. All rights reserved.</p>
             <div className="site-footer-meta">
-              <a href="#home" className="site-footer-link">Privacy Policy</a>
-              <span className="site-footer-divider" aria-hidden="true">·</span>
               <p className="site-footer-credit">Designed &amp; Built with ❤️ by Carl Scozzari</p>
             </div>
           </div>
