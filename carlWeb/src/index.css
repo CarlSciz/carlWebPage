@@ -79,11 +79,13 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
   margin: 0;
   min-width: 320px;
+  overflow-x: hidden;
   font-family: "Manrope", sans-serif;
   background: var(--body-bg);
   color: var(--ink-900);
@@ -182,6 +184,30 @@ img {
   color: var(--ink-700);
   font-size: 1.05rem;
   line-height: 1.8;
+}
+
+@media (max-width: 640px) {
+  .section-frame {
+    width: min(100% - 1.25rem, 1120px);
+  }
+
+  .section-eyebrow {
+    gap: 0.45rem;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+  }
+
+  .section-title {
+    font-size: clamp(2.2rem, 14vw, 3.4rem);
+    line-height: 1;
+    overflow-wrap: anywhere;
+  }
+
+  .section-copy {
+    font-size: 0.98rem;
+    line-height: 1.72;
+  }
 }
 
 @keyframes floatY {

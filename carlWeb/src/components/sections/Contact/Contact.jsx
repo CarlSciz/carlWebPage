@@ -3,6 +3,12 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 import emailjs from "@emailjs/browser";
 import "./Contact.css";
 
+const emailConfig = {
+  serviceId: import.meta.env.VITE_SERVICE_KEY,
+  templateId: import.meta.env.VITE_TEMPLATE_KEY,
+  publicKey: import.meta.env.VITE_PUBLIC_KEY,
+};
+
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -21,15 +27,28 @@ const Contact = () => {
 
   const sendEmail = async (e) => {
     e.preventDefault();
+
+    if (!emailConfig.serviceId || !emailConfig.templateId || !emailConfig.publicKey) {
+      setStatus({
+        type: "error",
+        message: "Message failed to send. The contact form is missing its email configuration."
+      });
+      return;
+    }
+
     setIsSending(true);
     setStatus({ type: "", message: "" });
 
     try {
       await emailjs.send(
-        import.meta.env.VITE_SERVICE_KEY,
-        import.meta.env.VITE_TEMPLATE_KEY,
-        formData,
-        import.meta.env.VITE_PUBLIC_KEY
+        emailConfig.serviceId,
+        emailConfig.templateId,
+        {
+          ...formData,
+          from_name: formData.name,
+          reply_to: formData.email,
+        },
+        emailConfig.publicKey
       );
 
       setStatus({

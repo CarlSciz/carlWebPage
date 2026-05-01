@@ -94,3 +94,73 @@
     align-items: start;
   }
 }
+
+@media (max-width: 640px) {
+  .resume-section {
+    min-height: auto;
+    padding: 3rem 0;
+  }
+
+  .resume-layout {
+    gap: 1rem;
+  }
+
+  .resume-panel {
+    border-radius: 1.25rem;
+    padding: 1.15rem;
+  }
+
+  .resume-download {
+    width: 100%;
+    justify-content: center;
+    padding: 0.9rem 1rem;
+    font-size: 0.76rem;
+    letter-spacing: 0.1em;
+  }
+
+  .resume-list {
+    gap: 0.8rem;
+  }
+
+  .resume-item {
+    border-radius: 1rem;
+    padding: 1rem;
+  }
+
+  .resume-company {
+    align-items: flex-start;
+    gap: 0.7rem;
+    min-width: 0;
+  }
+
+  .resume-company h3 {
+    font-size: 1.05rem;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+  }
+
+  .resume-role {
+    font-size: 0.92rem;
+    line-height: 1.45;
+  }
+
+  .resume-dates {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+  }
+
+  .resume-company-logo {
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius: 0.8rem;
+  }
+
+  .resume-company-logo.wide {
+    width: 3.75rem;
+  }
+
+  .resume-company-logo img {
+    max-width: 3rem;
+    max-height: 1.5rem;
+  }
+}

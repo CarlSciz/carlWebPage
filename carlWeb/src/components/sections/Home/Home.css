@@ -270,6 +270,92 @@
   opacity: 0.82;
 }
 
+@media (max-width: 640px) {
+  .home-section {
+    min-height: auto;
+    padding: 6.25rem 0 3rem;
+  }
+
+  .home-section .grid {
+    gap: 2rem;
+  }
+
+  .home-title {
+    font-size: clamp(2.65rem, 16vw, 4.25rem);
+    line-height: 0.96;
+    overflow-wrap: anywhere;
+  }
+
+  .home-kicker {
+    font-size: 0.74rem;
+    letter-spacing: 0.16em;
+  }
+
+  .home-copy {
+    max-width: none;
+    font-size: 0.98rem;
+    line-height: 1.72;
+  }
+
+  .home-primary-link,
+  .home-secondary-link {
+    width: 100%;
+    justify-content: center;
+    padding: 0.9rem 1rem;
+    font-size: 0.76rem;
+    letter-spacing: 0.12em;
+    text-align: center;
+  }
+
+  .home-tech-groups {
+    gap: 0.8rem;
+  }
+
+  .home-tech-group {
+    border-radius: 1rem;
+    padding: 0.75rem;
+  }
+
+  .home-tech-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+
+  .home-tech-chip {
+    min-width: 0;
+    min-height: 2.35rem;
+    padding: 0.5rem 0.55rem;
+    font-size: 0.72rem;
+  }
+
+  .home-portrait-wrap {
+    width: min(100%, 21rem);
+    animation: none;
+  }
+
+  .home-portrait-ring {
+    inset: -0.6rem;
+    border-radius: 1.35rem;
+  }
+
+  .home-card {
+    border-radius: 1.35rem;
+    padding: 1rem;
+  }
+
+  .home-card .rounded-\[1\.7rem\] {
+    border-radius: 1.15rem;
+    padding: 0.85rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .home-tech-chip {
+    gap: 0.35rem;
+    font-size: 0.68rem;
+  }
+}
+
 @keyframes availabilityPulseDark {
   0% {
     box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.28);

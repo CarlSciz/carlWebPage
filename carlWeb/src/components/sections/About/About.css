@@ -53,3 +53,33 @@
     align-items: start;
   }
 }
+
+@media (max-width: 640px) {
+  .about-section {
+    min-height: auto;
+    padding: 3rem 0 2rem;
+  }
+
+  .about-grid {
+    gap: 1rem;
+  }
+
+  .about-card {
+    border-radius: 1.25rem;
+    padding: 1.15rem;
+  }
+
+  .about-pillars {
+    gap: 0.75rem;
+  }
+
+  .about-pillar {
+    border-radius: 1rem;
+    padding: 1rem;
+  }
+
+  .about-story {
+    font-size: 0.98rem;
+    line-height: 1.72;
+  }
+}
