@@ -1,0 +1,202 @@
+name: Website Uptime Monitor
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+    inputs:
+      url:
+        description: "URL to monitor"
+        required: false
+        default: "https://carlscozzari.com/"
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: website-uptime-monitor
+  cancel-in-progress: true
+
+jobs:
+  uptime:
+    name: Check website uptime
+    runs-on: ubuntu-latest
+
+    env:
+      MONITOR_URL: ${{ inputs.url || 'https://carlscozzari.com/' }}
+      ISSUE_TITLE: "Website down: carlscozzari.com"
+
+    steps:
+      - name: Check website
+        id: check
+        run: |
+          set +e
+
+          echo "::group::Request"
+          echo "URL: $MONITOR_URL"
+          echo "Started at: $(date -u +"%Y-%m-%dT%H:%M:%SZ")"
+          echo "::endgroup::"
+
+          start_ms=$(date +%s%3N)
+          curl_output=$(curl \
+            --location \
+            --silent \
+            --show-error \
+            --output response-body.txt \
+            --write-out "http_code=%{http_code}\ntime_total=%{time_total}\ntime_connect=%{time_connect}\ntime_starttransfer=%{time_starttransfer}\nremote_ip=%{remote_ip}\nssl_verify_result=%{ssl_verify_result}\nurl_effective=%{url_effective}\n" \
+            --max-time 30 \
+            --retry 2 \
+            --retry-delay 5 \
+            "$MONITOR_URL" 2>&1)
+          curl_exit=$?
+          end_ms=$(date +%s%3N)
+          elapsed_ms=$((end_ms - start_ms))
+
+          echo "$curl_output" > curl-metrics.txt
+          http_code=$(grep '^http_code=' curl-metrics.txt | cut -d= -f2)
+          time_total=$(grep '^time_total=' curl-metrics.txt | cut -d= -f2)
+          remote_ip=$(grep '^remote_ip=' curl-metrics.txt | cut -d= -f2)
+          url_effective=$(grep '^url_effective=' curl-metrics.txt | cut -d= -f2-)
+          body_bytes=$(wc -c < response-body.txt)
+
+          echo "::group::Response metrics"
+          cat curl-metrics.txt
+          echo "curl_exit=$curl_exit"
+          echo "elapsed_ms=$elapsed_ms"
+          echo "body_bytes=$body_bytes"
+          echo "::endgroup::"
+
+          if [ "$curl_exit" -eq 0 ] && [ "$http_code" -ge 200 ] && [ "$http_code" -lt 400 ]; then
+            status="up"
+            message="Website is up"
+          else
+            status="down"
+            message="Website check failed"
+          fi
+
+          {
+            echo "status=$status"
+            echo "message=$message"
+            echo "http_code=$http_code"
+            echo "curl_exit=$curl_exit"
+            echo "elapsed_ms=$elapsed_ms"
+            echo "time_total=$time_total"
+            echo "remote_ip=$remote_ip"
+            echo "url_effective=$url_effective"
+            echo "body_bytes=$body_bytes"
+          } >> "$GITHUB_OUTPUT"
+
+          {
+            echo "### Website Uptime Monitor"
+            echo ""
+            echo "- URL: \`$MONITOR_URL\`"
+            echo "- Status: \`$status\`"
+            echo "- HTTP code: \`${http_code:-none}\`"
+            echo "- Curl exit: \`$curl_exit\`"
+            echo "- Total time: \`${time_total:-unknown}s\`"
+            echo "- Elapsed: \`${elapsed_ms}ms\`"
+            echo "- Remote IP: \`${remote_ip:-unknown}\`"
+            echo "- Effective URL: \`${url_effective:-unknown}\`"
+            echo "- Body size: \`${body_bytes} bytes\`"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Open or update downtime issue
+        if: steps.check.outputs.status == 'down'
+        uses: actions/github-script@v7
+        env:
+          MONITOR_URL: ${{ env.MONITOR_URL }}
+          ISSUE_TITLE: ${{ env.ISSUE_TITLE }}
+          HTTP_CODE: ${{ steps.check.outputs.http_code }}
+          CURL_EXIT: ${{ steps.check.outputs.curl_exit }}
+          ELAPSED_MS: ${{ steps.check.outputs.elapsed_ms }}
+          TIME_TOTAL: ${{ steps.check.outputs.time_total }}
+          REMOTE_IP: ${{ steps.check.outputs.remote_ip }}
+          URL_EFFECTIVE: ${{ steps.check.outputs.url_effective }}
+          BODY_BYTES: ${{ steps.check.outputs.body_bytes }}
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const title = process.env.ISSUE_TITLE;
+            const body = [
+              `The uptime monitor detected a failure for ${process.env.MONITOR_URL}.`,
+              "",
+              `- HTTP code: ${process.env.HTTP_CODE || "none"}`,
+              `- Curl exit: ${process.env.CURL_EXIT}`,
+              `- Elapsed: ${process.env.ELAPSED_MS}ms`,
+              `- Total time: ${process.env.TIME_TOTAL || "unknown"}s`,
+              `- Remote IP: ${process.env.REMOTE_IP || "unknown"}`,
+              `- Effective URL: ${process.env.URL_EFFECTIVE || "unknown"}`,
+              `- Body size: ${process.env.BODY_BYTES} bytes`,
+              `- Run: ${context.serverUrl}/${owner}/${repo}/actions/runs/${context.runId}`,
+            ].join("\n");
+
+            const { data: issues } = await github.rest.issues.listForRepo({
+              owner,
+              repo,
+              state: "open",
+            });
+
+            const existing = issues.find((issue) => issue.title === title);
+            if (existing) {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: existing.number,
+                body,
+              });
+            } else {
+              await github.rest.issues.create({
+                owner,
+                repo,
+                title,
+                body,
+              });
+            }
+
+      - name: Close resolved downtime issue
+        if: steps.check.outputs.status == 'up'
+        uses: actions/github-script@v7
+        env:
+          ISSUE_TITLE: ${{ env.ISSUE_TITLE }}
+          MONITOR_URL: ${{ env.MONITOR_URL }}
+          HTTP_CODE: ${{ steps.check.outputs.http_code }}
+          ELAPSED_MS: ${{ steps.check.outputs.elapsed_ms }}
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const title = process.env.ISSUE_TITLE;
+            const { data: issues } = await github.rest.issues.listForRepo({
+              owner,
+              repo,
+              state: "open",
+            });
+
+            const existing = issues.find((issue) => issue.title === title);
+            if (!existing) return;
+
+            await github.rest.issues.createComment({
+              owner,
+              repo,
+              issue_number: existing.number,
+              body: [
+                `The uptime monitor detected recovery for ${process.env.MONITOR_URL}.`,
+                "",
+                `- HTTP code: ${process.env.HTTP_CODE}`,
+                `- Elapsed: ${process.env.ELAPSED_MS}ms`,
+                `- Run: ${context.serverUrl}/${owner}/${repo}/actions/runs/${context.runId}`,
+              ].join("\n"),
+            });
+
+            await github.rest.issues.update({
+              owner,
+              repo,
+              issue_number: existing.number,
+              state: "closed",
+            });
+
+      - name: Fail workflow when website is down
+        if: steps.check.outputs.status == 'down'
+        run: |
+          echo "::error::Website uptime check failed for $MONITOR_URL"
+          exit 1
