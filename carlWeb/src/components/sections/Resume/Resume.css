@@ -46,6 +46,34 @@
   background: var(--surface-card);
 }
 
+.resume-company {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.resume-company-logo {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border: 1px solid var(--border-soft);
+  border-radius: 1rem;
+  background: color-mix(in srgb, var(--surface-elevated) 88%, transparent);
+  box-shadow: 0 12px 24px rgba(20, 54, 66, 0.08);
+}
+
+.resume-company-logo.wide {
+  width: 4.8rem;
+}
+
+.resume-company-logo img {
+  max-width: 3.7rem;
+  max-height: 1.9rem;
+  object-fit: contain;
+}
+
 .resume-role {
   margin: 0.4rem 0 0;
   color: var(--ink-700);

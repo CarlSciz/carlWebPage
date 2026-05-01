@@ -29,17 +29,22 @@ function App() {
 
   return (
     <div className="app-shell">
+      <a href="#main-content" className="skip-link">
+        Skip to main content
+      </a>
       <div className="relative z-10 transition-opacity duration-1000 opacity-100">
         <Navbar isDarkMode={isDarkMode} onToggleTheme={() => setIsDarkMode((value) => !value)} />
-        <Home />
-        <About />
-        <Resume />
-        <Contact />
+        <main id="main-content">
+          <Home />
+          <About />
+          <Resume />
+          <Contact />
+        </main>
         <footer className="site-footer">
           <div className="section-frame site-footer-inner">
             <p className="site-footer-copy">© 2026 Carl Scozzari. All rights reserved.</p>
             <div className="site-footer-meta">
-              <p className="site-footer-credit">Designed &amp; Built with ❤️ by Carl Scozzari</p>
+              <p className="site-footer-credit">Designed &amp; Built by Carl Scozzari</p>
             </div>
           </div>
         </footer>

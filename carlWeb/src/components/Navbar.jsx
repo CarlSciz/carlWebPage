@@ -43,17 +43,15 @@ const Navbar = ({ isDarkMode, onToggleTheme }) => {
   }, []);
 
   return (
-    <nav className="site-nav fixed top-0 w-full z-40">
+    <nav className="site-nav fixed top-0 w-full z-40" aria-label="Primary navigation">
       <div className="section-frame px-4 sm:px-6">
         <div className="flex h-18 items-center justify-between gap-4">
-          <a href="#home" className="nav-badge hidden rounded-full px-4 py-2 text-sm font-semibold md:inline-flex">
-            Carl Scozzari
-          </a>
           <div className="flex flex-1 justify-center gap-2 sm:gap-3">
             {sections.map(item => (
              <a
              key={item.id}
              href={item.href}
+             aria-current={activeSection === item.href.substring(1) ? "page" : undefined}
              className={`nav-link ${
                activeSection === item.href.substring(1)
                  ? 'active'
@@ -66,17 +64,23 @@ const Navbar = ({ isDarkMode, onToggleTheme }) => {
           </div>
           <button
             type="button"
-            className="nav-theme-toggle nav-badge rounded-full p-2"
+            className="nav-theme-toggle"
             onClick={onToggleTheme}
             aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
             aria-pressed={isDarkMode}
             title={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
           >
-            <img
-              src="/carl_vector.png"
-              alt="Carl 2D Selfie"
-              className="h-10 w-10 object-contain"
-            />
+            <span className="nav-theme-track" aria-hidden="true">
+              <span className="nav-theme-icon light">&#9728;</span>
+              <span className="nav-theme-icon dark">&#9790;</span>
+              <span className="nav-theme-thumb">
+                <img
+                  src="/carl_vector.png"
+                  alt=""
+                  className="h-10 w-10 object-contain"
+                />
+              </span>
+            </span>
           </button>
         </div>
       </div>

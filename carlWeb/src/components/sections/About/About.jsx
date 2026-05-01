@@ -15,21 +15,35 @@ const About = () => {
           <div data-aos="fade-up" className="glass-panel about-card text-left">
             <span className="section-eyebrow">About</span>
             <h2 className="section-title mt-6">
-              Calm systems,
-              <span className="about-accent"> confident execution.</span>
+              Built through iteration,
+              <span className="about-accent"> refined through challenge.</span>
             </h2>
             <p className="section-copy mt-6">
-              Carl blends engineering discipline with creative instincts, shaping products
-              that feel smooth, modern, and memorable from the first interaction.
+              I&apos;m Carl &mdash; a full-stack developer with a background in building scalable internal tools,
+              data pipelines, and user-focused applications. My work spans everything from Flask-based
+              systems and APIs to modern frontend experiences, with a strong emphasis on performance,
+              reliability, and clean design.
+            </p>
+            <p className="section-copy mt-4">
+              I enjoy wrestling with code &mdash; digging into problems, tracing edge cases, and pushing
+              through complexity until things click. Whether it&apos;s debugging production issues,
+              optimizing workflows, or designing systems that scale, I&apos;m at my best when I&apos;m solving
+              challenges that require both persistence and creativity.
             </p>
             <div className="about-pillars mt-8">
               <div className="about-pillar rounded-[1.5rem] p-5">
-                <h3>Full-stack range</h3>
-                <p>Comfortable moving from interface polish to backend architecture while keeping the whole experience cohesive.</p>
+                <h3>Full-stack execution</h3>
+                <p>
+                  From frontend interfaces to backend systems, I build cohesive applications that are
+                  both intuitive for users and maintainable at scale.
+                </p>
               </div>
               <div className="about-pillar rounded-[1.5rem] p-5">
-                <h3>User-first mindset</h3>
-                <p>Focused on clarity, responsiveness, and the little details that make software feel intentional.</p>
+                <h3>Problem-driven mindset</h3>
+                <p>
+                  I thrive on solving complex problems &mdash; breaking them down, iterating quickly, and
+                  delivering solutions that are thoughtful, efficient, and reliable.
+                </p>
               </div>
             </div>
           </div>
@@ -40,18 +54,17 @@ const About = () => {
             className="glass-panel about-card text-left"
           >
             <p className="about-story">
-              Full-stack software developer passionate about building clean, efficient, and scalable applications.
-              I have worked across a wide range of technologies and languages, including Python, Java, and JavaScript,
-              delivering high-quality code in both frontend and backend environments.
+              Outside of code, I&apos;m a Detroit sports fan through and through, a comic book fanatic,
+              and a pro wrestling aficionado &mdash; which probably explains why I enjoy a good challenge.
+              I like getting in the ring with tough problems, breaking them down, and working through
+              them until they&apos;re solved the right way.
             </p>
             <p className="about-story mt-6">
-              What drives me most is the thrill of creating impactful, user-focused applications that solve real problems.
-              I care about the full feel of a product, not just whether it technically works.
-            </p>
-            <p className="about-story mt-6">
-              My journey into software began unexpectedly during an internship with a semi-pro soccer team.
-              That experience brought me to a crossroads, and I chose to step away from graphic design and fully pursue programming.
-              I have not looked back since.
+              My path into software wasn&apos;t traditional. I started in graphic design and found my way
+              into development during an internship with a semi-pro soccer team. That moment forced a
+              decision, and I chose to go all in on programming. Since then, I&apos;ve been driven by the
+              same thing &mdash; building meaningful systems, solving real problems, and continuously getting
+              better at the craft.
             </p>
           </div>
         </div>

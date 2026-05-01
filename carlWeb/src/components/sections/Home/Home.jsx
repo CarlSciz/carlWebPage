@@ -1,4 +1,63 @@
 import "./Home.css";
+import { FaDatabase } from "react-icons/fa";
+import { VscAzure } from "react-icons/vsc";
+import {
+  SiAmazonwebservices,
+  SiCss3,
+  SiGooglecloud,
+  SiHtml5,
+  SiJavascript,
+  SiKotlin,
+  SiMysql,
+  SiOpenjdk,
+  SiOracle,
+  SiPostgresql,
+  SiPython,
+  SiSap,
+  SiSwift,
+  SiTypescript,
+} from "react-icons/si";
+
+const techGroups = [
+  {
+    label: "Programming Languages",
+    items: [
+      { name: "Python", Icon: SiPython, color: "#3776ab" },
+      { name: "JavaScript", Icon: SiJavascript, color: "#f7df1e" },
+      { name: "TypeScript", Icon: SiTypescript, color: "#3178c6" },
+      { name: "Java", Icon: SiOpenjdk, color: "#f89820" },
+      { name: "Swift", Icon: SiSwift, color: "#f05138" },
+      { name: "Kotlin", Icon: SiKotlin, color: "#7f52ff" },
+      { name: "HTML", Icon: SiHtml5, color: "#e34f26" },
+      { name: "CSS", Icon: SiCss3, color: "#1572b6" },
+    ],
+  },
+  {
+    label: "Databases",
+    items: [
+      { name: "Postgres", Icon: SiPostgresql, color: "#4169e1" },
+      { name: "MySQL", Icon: SiMysql, color: "#4479a1" },
+      { name: "SQL", Icon: FaDatabase, color: "#2d7b83" },
+      { name: "Oracle", Icon: SiOracle, color: "#f80000" },
+      { name: "SAP", Icon: SiSap, color: "#0faaff" },
+    ],
+  },
+  {
+    label: "Cloud Technology",
+    items: [
+      { name: "AWS", Icon: SiAmazonwebservices, color: "#ff9900" },
+      { name: "Azure", Icon: VscAzure, color: "#0078d4" },
+      { name: "Google Cloud", Icon: SiGooglecloud, color: "#4285f4" },
+    ],
+  },
+];
+
+const renderTechChip = ({ name, Icon, color }) => (
+  <span key={name} className="home-tech-chip" style={{ "--tech-color": color }}>
+    <Icon className="home-tech-icon" aria-hidden="true" />
+    {name}
+  </span>
+);
 
 const Home = () => {
   return (
@@ -14,15 +73,23 @@ const Home = () => {
               </h1>
             </div>
             <p className="home-copy">
-              Full-stack software engineer with a track record of building high-performance applications,
-              backend services, and API-driven workflows that streamline operations and support data-driven
-              decision making. Experienced across Python, Java, and JavaScript, with hands-on depth in
-              distributed systems, CI/CD pipelines, cloud tooling, and resilient platform design.
+              Full-stack software engineer and data engineer with a track record of building high-performance
+              applications, backend services, and data pipelines that power real-world systems. I&apos;ve worked
+              across Python, Java, and JavaScript, with hands-on experience in distributed systems, CI/CD,
+              cloud infrastructure, and resilient platform design. Much of my work sits at the intersection
+              of application development and data &mdash; building API-driven workflows, ETL pipelines, and systems
+              that turn raw data into something teams can actually use &mdash; and I&apos;m at my best digging into
+              problems, optimizing performance, and wrestling with code until things work the right way.
             </p>
-            <div className="home-fade-delay flex flex-wrap gap-3">
-              <span className="home-chip rounded-full px-4 py-2 text-sm font-semibold">Python, Java, JavaScript</span>
-              <span className="home-chip rounded-full px-4 py-2 text-sm font-semibold">Backend Services + API Design</span>
-              <span className="home-chip rounded-full px-4 py-2 text-sm font-semibold">Cloud, CI/CD, Distributed Systems</span>
+            <div className="home-fade-delay home-tech-groups" aria-label="Technology stack">
+              {techGroups.map((group) => (
+                <div key={group.label} className="home-tech-group">
+                  <p className="home-tech-label">{group.label}</p>
+                  <div className="home-tech-grid">
+                    {group.items.map(renderTechChip)}
+                  </div>
+                </div>
+              ))}
             </div>
             <div className="home-fade-delay-2 flex flex-wrap gap-4">
               <a href="#contact" className="home-primary-link rounded-full px-6 py-3 text-sm font-bold uppercase tracking-[0.18em]">
@@ -32,20 +99,6 @@ const Home = () => {
                 View Experience
               </a>
             </div>
-            <div className="grid gap-4 pt-4 sm:grid-cols-3">
-              <div className="home-stat-card rounded-[1.5rem] p-5">
-                <p className="home-stat-value">5+</p>
-                <p className="mt-2 text-sm font-medium text-[var(--ink-700)]">Years building across the stack</p>
-              </div>
-              <div className="home-stat-card rounded-[1.5rem] p-5">
-                <p className="home-stat-value">API</p>
-                <p className="mt-2 text-sm font-medium text-[var(--ink-700)]">Workflow automation, integrations, and platform services</p>
-              </div>
-              <div className="home-stat-card rounded-[1.5rem] p-5">
-                <p className="home-stat-value">Cloud</p>
-                <p className="mt-2 text-sm font-medium text-[var(--ink-700)]">Docker, AWS, Airflow, PostgreSQL, MySQL</p>
-              </div>
-            </div>
           </div>
 
           <div className="home-fade-delay relative flex justify-center lg:justify-end">
@@ -53,7 +106,8 @@ const Home = () => {
               <div className="home-portrait-ring" />
               <div className="glass-panel home-card relative max-w-md overflow-hidden p-6">
                 <div className="mb-5 flex justify-end text-left">
-                  <div className="rounded-full bg-white/70 px-3 py-2 text-xs font-bold uppercase tracking-[0.18em] text-[var(--teal-700)]">
+                  <div className="home-availability rounded-full bg-white/70 px-3 py-2 text-xs font-bold uppercase tracking-[0.18em] text-[var(--teal-700)]">
+                    <span className="home-availability-dot" aria-hidden="true" />
                     Available
                   </div>
                 </div>

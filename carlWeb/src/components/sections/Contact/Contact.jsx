@@ -66,8 +66,9 @@ const Contact = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="contact-link"
+                aria-label="Visit Carl's GitHub profile, opens in a new tab"
               >
-                <FaGithub size={22} />
+                <FaGithub size={22} aria-hidden="true" />
                 GitHub
               </a>
               <a
@@ -75,34 +76,53 @@ const Contact = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="contact-link"
+                aria-label="Visit Carl's LinkedIn profile, opens in a new tab"
               >
-                <FaLinkedin size={22} />
+                <FaLinkedin size={22} aria-hidden="true" />
                 LinkedIn
               </a>
             </div>
           </div>
 
           <div className="glass-panel contact-panel">
-            <form onSubmit={sendEmail} className="contact-form">
+            <form
+              onSubmit={sendEmail}
+              className="contact-form"
+              aria-describedby={status.message ? "contact-form-status" : undefined}
+            >
+              <label className="sr-only" htmlFor="contact-name">
+                Name
+              </label>
               <input
+                id="contact-name"
                 className="contact-field"
                 type="text"
                 name="name"
+                autoComplete="name"
                 placeholder="Name"
                 value={formData.name}
                 onChange={handleChange}
                 required
               />
+              <label className="sr-only" htmlFor="contact-email">
+                Email
+              </label>
               <input
+                id="contact-email"
                 className="contact-field"
                 type="email"
                 name="email"
+                autoComplete="email"
                 placeholder="Email"
                 value={formData.email}
                 onChange={handleChange}
                 required
               />
+              <label className="sr-only" htmlFor="contact-message">
+                Message
+              </label>
               <textarea
+                id="contact-message"
                 className="contact-field min-h-40 resize-y"
                 name="message"
                 placeholder="Tell me about the project, role, or idea."
@@ -114,7 +134,12 @@ const Contact = () => {
                 {isSending ? "Sending..." : "Send Message"}
               </button>
               {status.message ? (
-                <p className={`contact-status ${status.type === "error" ? "error" : ""}`}>
+                <p
+                  id="contact-form-status"
+                  className={`contact-status ${status.type === "error" ? "error" : ""}`}
+                  role={status.type === "error" ? "alert" : "status"}
+                  aria-live="polite"
+                >
                   {status.message}
                 </p>
               ) : null}
