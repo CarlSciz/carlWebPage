@@ -1,0 +1,139 @@
+name: Site Build Diagnostics
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build and log site details
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Log workflow context
+        run: |
+          echo "::group::GitHub context"
+          echo "event_name=${{ github.event_name }}"
+          echo "actor=${{ github.actor }}"
+          echo "ref=${{ github.ref }}"
+          echo "ref_name=${{ github.ref_name }}"
+          echo "sha=${{ github.sha }}"
+          echo "run_id=${{ github.run_id }}"
+          echo "run_attempt=${{ github.run_attempt }}"
+          echo "::endgroup::"
+
+          echo "::group::Repository state"
+          pwd
+          git status --short
+          git log -1 --oneline
+          echo "::endgroup::"
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: carlWeb/package-lock.json
+
+      - name: Log tool versions
+        run: |
+          echo "::group::Tool versions"
+          node --version
+          npm --version
+          git --version
+          echo "::endgroup::"
+
+      - name: Install dependencies
+        working-directory: carlWeb
+        run: |
+          echo "::group::npm ci"
+          npm ci
+          echo "::endgroup::"
+
+      - name: Lint source
+        working-directory: carlWeb
+        run: |
+          echo "::group::ESLint"
+          npm run lint
+          echo "::endgroup::"
+
+      - name: Build site
+        working-directory: carlWeb
+        run: |
+          echo "::group::Vite build"
+          npm run build
+          echo "::endgroup::"
+
+      - name: Inspect build output
+        if: always()
+        run: |
+          echo "::group::docs output"
+          if [ -d docs ]; then
+            find docs -maxdepth 2 -type f -printf "%p %k KB\n" | sort
+          else
+            echo "::error::docs directory was not created"
+          fi
+          echo "::endgroup::"
+
+          if [ -f docs/CNAME ]; then
+            echo "CNAME=$(cat docs/CNAME)"
+          else
+            echo "::warning file=docs/CNAME::docs/CNAME is missing. Custom domain may disconnect after deployment."
+          fi
+
+          if [ -f docs/index.html ]; then
+            echo "index.html size: $(wc -c < docs/index.html) bytes"
+          else
+            echo "::error file=docs/index.html::docs/index.html is missing"
+          fi
+
+      - name: Upload built docs artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-docs
+          path: docs
+          if-no-files-found: warn
+          retention-days: 7
+
+      - name: Write build summary
+        if: always()
+        run: |
+          {
+            echo "### Site Build Diagnostics"
+            echo ""
+            echo "- Event: \`${{ github.event_name }}\`"
+            echo "- Branch: \`${{ github.ref_name }}\`"
+            echo "- Commit: \`${{ github.sha }}\`"
+            echo "- Node: \`$(node --version)\`"
+            echo "- npm: \`$(npm --version)\`"
+            echo "- Build output: \`docs/\`"
+            if [ -f docs/CNAME ]; then
+              echo "- CNAME: \`$(cat docs/CNAME)\`"
+            else
+              echo "- CNAME: missing"
+            fi
+            echo ""
+            echo "Generated files:"
+            echo ""
+            if [ -d docs ]; then
+              find docs -maxdepth 2 -type f | sort | sed 's/^/- `/' | sed 's/$/`/'
+            else
+              echo "- \`docs/\` was not created"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
